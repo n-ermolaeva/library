@@ -29,8 +29,8 @@ public class AuthorsController {
 
     @GetMapping("/users/author/")
     public List<DescriptionАuthorDto> addAuthor(@RequestParam(required = true, defaultValue = "1") Integer authorId,
-                                                         @RequestParam(required = true, defaultValue = "Tolstoy") String authorName,
-                                                         Model model) {
+                                                @RequestParam(required = true, defaultValue = "Tolstoy") String authorName,
+                                                Model model) {
         authorsService.addAuthor(authorId, authorName);
         return authorsService.authorsList();
     }

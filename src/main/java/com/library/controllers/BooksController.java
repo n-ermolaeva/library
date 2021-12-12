@@ -30,9 +30,9 @@ public class BooksController {
 
     @GetMapping("/users/book/")
     public List<DescriptionBooksDto> addBook(@RequestParam(required = true, defaultValue = "7") Integer bookId,
-                                                       @RequestParam(required = true, defaultValue = "Heart of a dog") String bookName,
-                                                       @RequestParam(required = true, defaultValue = "3") Integer authorBooksId,
-                                                       Model model) throws AuthorNotFoundException {
+                                             @RequestParam(required = true, defaultValue = "Heart of a dog") String bookName,
+                                             @RequestParam(required = true, defaultValue = "3") Integer authorBooksId,
+                                             Model model) throws AuthorNotFoundException {
         booksService.addBooks(bookId, bookName, authorBooksId);
         return booksService.booksList();
     }
