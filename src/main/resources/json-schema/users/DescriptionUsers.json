@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema-org/draft-07/schema#",
+  "type": "object",
+  "javaType": "com.dto.users.DescriptionUsers",
+  "description": "Запрос на получение описание книги",
+  "required": [
+    "id",
+    "name",
+    "role",
+    "password"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Идентификатор пользователя"
+    },
+    "name": {
+      "type": "string",
+      "description": "Имя пользователя",
+      "maxLength": 70
+    },
+    "role": {
+      "type": "array",
+      "description": "Роль пользователя",
+      "maxLength": 70
+    },
+    "password": {
+      "type": "string",
+      "description": "Имя пользователя",
+      "maxLength": 70
+    }
+  }
+}
+
+

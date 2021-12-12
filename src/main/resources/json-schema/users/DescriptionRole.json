@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema-org/draft-07/schema#",
+  "type": "object",
+  "javaType": "com.dto.users.DescriptionRole",
+  "description": "Роль пользователя",
+  "required": [
+    "id",
+    "name"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Идентификатор пользователя"
+    },
+    "name": {
+      "type": "string",
+      "description": "Имя пользователя",
+      "maxLength": 70
+    }
+  }
+}

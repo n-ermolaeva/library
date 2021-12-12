@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema-org/draft-07/schema#",
+  "type": "object",
+  "javaType": "com.dto.authors.DescriptionАuthor",
+  "description": "Запрос на получение описание автора",
+  "required": [
+    "authorId",
+    "authorName"
+  ],
+  "properties": {
+    "authorId": {
+      "type": "integer",
+      "description": "Идентификатор автора"
+    },
+    "authorName": {
+      "type": "string",
+      "description": "Автор книги",
+      "maxLength": 70
+    }
+  }
+}
