@@ -37,7 +37,6 @@ public class BooksController {
         return booksService.booksList();
     }
 
-
     @GetMapping("/findbooks/{sometext}")
     public List findBooksSomeAuthorName(@PathVariable String sometext) {
         return booksService.findBookSomeAuthorName(sometext);
