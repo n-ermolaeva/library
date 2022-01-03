@@ -47,7 +47,8 @@ public class UsersService {
                 .collect(Collectors.toList());
     }
 
-    public DescriptionUsersDto findUsersById(String name, String password) throws UserNotFoundException {
+    public DescriptionUsersDto findUsersById(String name,
+                                             String password) throws UserNotFoundException {
         Optional<Users> optionalDescriptionUsersDto =
                 usersRepository.findByUsernameAndPassword(name, password);
         DescriptionUsersDto descriptionUsersDto;

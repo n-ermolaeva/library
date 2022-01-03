@@ -27,7 +27,9 @@ public class Users {
     @Setter
     private Set<Role> roles;
 
-    public Users(Integer id, String name, Set<Role> roles) {
+    public Users(Integer id,
+                 String name,
+                 Set<Role> roles) {
         this.id = id;
         this.username = name;
         this.roles = roles;

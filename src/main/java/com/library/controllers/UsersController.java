@@ -32,7 +32,8 @@ public class UsersController {
 
     @PostMapping("/about")
     @ResponseBody
-    public DescriptionUsersDto greetingSubmit(@ModelAttribute Users users, Model model) throws UserNotFoundException {
+    public DescriptionUsersDto greetingSubmit(@ModelAttribute Users users,
+                                              Model model) throws UserNotFoundException {
         model.addAttribute("users", users);
         return usersService.findUsersById(users.getUsername(), users.getPassword());
     }

@@ -11,7 +11,8 @@ import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users, Integer> {
     List<Users> findAllBy();
 
-    Optional<Users> findByUsernameAndPassword(String username, String password);
+    Optional<Users> findByUsernameAndPassword(String username,
+                                              String password);
 
     Users findByUsername(String username);
 
