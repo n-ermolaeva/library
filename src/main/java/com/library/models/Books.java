@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "books")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Books {
@@ -16,15 +15,15 @@ public class Books {
     @Column(name="book_id")
     @Getter
     @Setter
-    private Integer book_id;
+    private Integer bookId;
 
     @Column(name="book_name")
     @Getter
     @Setter
-    private String book_name;
+    private String bookName;
 
     @Column(name="author_books_id")
     @Getter
     @Setter
-    private Integer author_books_id;
+    private Integer authorBooksId;
 }

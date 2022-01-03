@@ -2,16 +2,12 @@ package com.library.controllers;
 
 import com.dto.books.DescriptionBooksDto;
 import com.library.exception.AuthorNotFoundException;
+import com.library.models.Books;
 import com.library.service.BooksService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,16 +20,13 @@ public class BooksController {
     }
 
     @GetMapping("/book/{id}")
-    public Optional<DescriptionBooksDto> getBookDescription(@PathVariable Integer id) throws Throwable {
+    public DescriptionBooksDto getBookDescription(@PathVariable Integer id) throws Throwable {
         return booksService.findBookById(id);
     }
 
-    @GetMapping("/users/book/")
-    public List<DescriptionBooksDto> addBook(@RequestParam(required = true, defaultValue = "7") Integer bookId,
-                                             @RequestParam(required = true, defaultValue = "Heart of a dog") String bookName,
-                                             @RequestParam(required = true, defaultValue = "3") Integer authorBooksId,
-                                             Model model) throws AuthorNotFoundException {
-        booksService.addBooks(bookId, bookName, authorBooksId);
+    @PostMapping("/users/book/")
+    public List<DescriptionBooksDto> addBook(@RequestBody Books request) throws AuthorNotFoundException {
+        booksService.addBooks(request);
         return booksService.booksList();
     }
 

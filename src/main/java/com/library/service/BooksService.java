@@ -29,40 +29,37 @@ public class BooksService {
     @PersistenceContext()
     private EntityManager entityManager;
 
-    public void addBooks(Integer bookId,
-                         String bookName,
-                         Integer authorBooksId) throws AuthorNotFoundException {
-        if (authorsRepository.findAllBy()
-                .stream().noneMatch(author -> author.getAuthor_id().equals(authorBooksId))) {
-            throw new AuthorNotFoundException("Не найден автор с ID " + authorBooksId + " добавляемой книги");
+    public void addBooks(Books books) throws AuthorNotFoundException {
+        if (authorsRepository.findByAuthorId(books.getAuthorBooksId()).isEmpty()) {
+            throw new AuthorNotFoundException("No author found with ID " +
+                    books.getAuthorBooksId() + " added book");
         }
-        booksRepository.save(new Books(bookId, bookName, authorBooksId));
+        booksRepository.save(books);
     }
 
     public List<DescriptionBooksDto> booksList() {
         return booksRepository.findAllBy()
                 .stream()
-                .map(books -> new DescriptionBooksDto().withBookId(books.getBook_id())
-                        .withBookName(books.getBook_name())
-                        .withAuthorBooksId(books.getAuthor_books_id())
+                .map(books -> new DescriptionBooksDto().withBookId(books.getBookId())
+                        .withBookName(books.getBookName())
+                        .withAuthorBooksId(books.getAuthorBooksId())
                 )
                 .collect(Collectors.toList());
     }
 
-    public Optional<DescriptionBooksDto> findBookById(Integer id) throws Throwable {
-        List<Books> booksList = booksRepository.findAllBy();
-        Optional<DescriptionBooksDto> optionalDescriptionBooksDto = booksList
-                .stream()
-                .filter(book -> book.getBook_id().equals(id))
-                .map(books -> new DescriptionBooksDto().withBookId(books.getBook_id())
-                        .withBookName(books.getBook_name())
-                        .withAuthorBooksId(books.getAuthor_books_id())
-                )
-                .findFirst();
-        if (optionalDescriptionBooksDto.isEmpty()) {
-            throw new BookNotFoundException("Не найдена книга с Id " + id);
+    public DescriptionBooksDto findBookById(Integer id) throws Throwable {
+        Optional<Books> books = booksRepository.findByBookId(id);
+        DescriptionBooksDto descriptionBooksDto;
+        if (books.isEmpty()) {
+            throw new BookNotFoundException("Book with Id not found " + id);
+
+        } else {
+            descriptionBooksDto = new DescriptionBooksDto()
+                    .withBookId((books.get().getBookId()))
+                    .withBookName(books.get().getBookName())
+                    .withAuthorBooksId(books.get().getAuthorBooksId());
         }
-        return optionalDescriptionBooksDto;
+        return descriptionBooksDto;
     }
 
     public List findBookSomeAuthorName(String sometext) {

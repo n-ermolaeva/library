@@ -21,32 +21,29 @@ import java.util.stream.Collectors;
 public class AuthorsService {
     private final AuthorsRepository authorsRepository;
 
-    public void addAuthor(Integer id,
-                          String name) {
-        authorsRepository.save(new Authors(id, name));
+    public void addAuthor(Authors authors) {
+        authorsRepository.save(authors);
     }
 
     public List<DescriptionАuthorDto> authorsList() {
         return authorsRepository.findAllBy()
                 .stream()
-                .map(authors -> new DescriptionАuthorDto().withAuthorId(authors.getAuthor_id())
-                        .withAuthorName(authors.getAuthor_name())
+                .map(authors -> new DescriptionАuthorDto().withAuthorId(authors.getAuthorId())
+                        .withAuthorName(authors.getAuthorName())
                 )
                 .collect(Collectors.toList());
     }
 
-    public Optional<DescriptionАuthorDto> findAuthorById(Integer id) throws Throwable {
-        List<Authors> authorsList = authorsRepository.findAllBy();
-        Optional<DescriptionАuthorDto> optionalDescriptionAuthorDto = authorsList
-                .stream()
-                .filter(author -> author.getAuthor_id().equals(id))
-                .map(authors -> new DescriptionАuthorDto().withAuthorId(authors.getAuthor_id())
-                        .withAuthorName(authors.getAuthor_name())
-                )
-                .findFirst();
-        if (optionalDescriptionAuthorDto.isEmpty()) {
-            throw new AuthorNotFoundException("Не найден автор книги с Id " + id);
+    public DescriptionАuthorDto findAuthorById(Integer id) throws Throwable {
+        Optional<Authors> optionalAuthors = authorsRepository.findByAuthorId(id);
+        DescriptionАuthorDto descriptionАuthorDto;
+        if (optionalAuthors.isEmpty()) {
+            throw new AuthorNotFoundException("book author not found with ID " + id);
+        } else {
+            descriptionАuthorDto = new DescriptionАuthorDto()
+                    .withAuthorId((optionalAuthors.get().getAuthorId()))
+                    .withAuthorName(optionalAuthors.get().getAuthorName());
         }
-        return optionalDescriptionAuthorDto;
+        return descriptionАuthorDto;
     }
 }
