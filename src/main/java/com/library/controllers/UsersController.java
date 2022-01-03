@@ -37,7 +37,7 @@ public class UsersController {
         return usersService.findUsersById(users.getUsername(), users.getPassword());
     }
 
-    @GetMapping("/users/")
+    @GetMapping("/admin/users/")
     @ResponseBody
     public List<DescriptionUsersDto> getListUsers() {
         return usersService.usersList();
