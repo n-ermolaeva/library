@@ -2,7 +2,6 @@ package com.library.service;
 
 import com.dto.users.DescriptionUsersDto;
 
-import com.library.exception.BookNotFoundException;
 import com.library.exception.UserNotFoundException;
 import com.library.models.Role;
 import com.library.models.Users;
@@ -24,7 +23,7 @@ public class UsersService {
 
     public String getPasswordByName(String name) {
         return usersRepository.findByUsername(name)
-                .getUsername();
+                .getPassword();
     }
 
     public void addUser(Integer id,
